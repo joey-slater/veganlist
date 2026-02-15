@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VeganList - Community Vegan Directory</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #f5f5f5;
+            color: #183000;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            border-bottom: 2px solid #000;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .tagline {
+            font-size: 0.9em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        
+        .ethos {
+            font-size: 0.85em;
+            font-style: italic;
+            color: #666;
+            background-color: #efefef;
+            padding: 10px;
+            border-left: 3px solid #000;
+        }
+        
+        .section {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        
+        .cities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .city-link {
+            display: block;
+            padding: 12px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            text-decoration: none;
+            color: #000;
+            transition: background-color 0.2s;
+        }
+        
+        .city-link:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .city-name {
+            font-weight: bold;
+            font-size: 1.05em;
+        }
+        
+        .city-count {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 3px;
+        }
+        
+        .action-links {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+        }
+        
+        .action-links a {
+            color: #000;
+            text-decoration: underline;
+            margin-right: 20px;
+        }
+        
+        .empty-state {
+            color: #666;
+            font-style: italic;
+            padding: 20px 0;
+        }
+        
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #000;
+            font-size: 0.85em;
+            color: #666;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+            
+            .cities-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>VeganList</h1>
+        <div class="tagline">A community-maintained directory of vegan places</div>
+        <div class="ethos">
+            No ads. No promoted listings. No corporate bullshit. Just people helping people find vegan food and community.
+        </div>
+    </header>
+
+    <div class="section">
+        <h2>Browse by Location</h2>
+        <div id="citiesList"></div>
+        
+        <div class="action-links">
+            <a href="browse.html">browse all places</a>
+            <a href="add.html">add a place</a>
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>About VeganList:</strong> VeganList is a free, community-maintained resource. No ads, no promoted listings.</p>
+        <p style="margin-top: 10px;">Made with &#9829; for the vegan community. Kindness first.</p>
+    </footer>
+
+    <script>
+        async function loadCities() {
+            try {
+                const result = await window.storage.get('veganlist-directory', false);
+                let listings = [];
+                
+                if (result && result.value) {
+                    listings = JSON.parse(result.value);
+                }
+                
+                if (listings.length === 0) {
+                    document.getElementById('citiesList').innerHTML = `
+                        <div class="empty-state">
+                            No listings yet. Be the first to <a href="add.html">add a place</a>!
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Group listings by location (city)
+                const cityCounts = {};
+                listings.forEach(listing => {
+                    const city = listing.location;
+                    if (!cityCounts[city]) {
+                        cityCounts[city] = 0;
+                    }
+                    cityCounts[city]++;
+                });
+                
+                // Sort cities alphabetically
+                const sortedCities = Object.keys(cityCounts).sort();
+                
+                // Generate city links
+                const citiesHTML = sortedCities.map(city => {
+                    const count = cityCounts[city];
+                    const encoded = encodeURIComponent(city);
+                    return `
+                        <a href="city.html?location=${encoded}" class="city-link">
+                            <div class="city-name">${escapeHtml(city)}</div>
+                            <div class="city-count">${count} ${count === 1 ? 'place' : 'places'}</div>
+                        </a>
+                    `;
+                }).join('');
+                
+                document.getElementById('citiesList').innerHTML = `
+                    <div class="cities-grid">
+                        ${citiesHTML}
+                    </div>
+                `;
+                
+            } catch (error) {
+                console.error('Error loading cities:', error);
+                document.getElementById('citiesList').innerHTML = `
+                    <div class="empty-state">
+                        No listings yet. Be the first to <a href="add.html">add a place</a>!
+                    </div>
+                `;
+            }
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        loadCities();
+    </script>
+</body>
+</html>

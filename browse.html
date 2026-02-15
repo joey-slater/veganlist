@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse All - VeganList</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #f5f5f5;
+            color: #183000;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            border-bottom: 2px solid #000;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        h1 a {
+            color: #000;
+            text-decoration: none;
+        }
+        
+        h1 a:hover {
+            text-decoration: underline;
+        }
+        
+        .breadcrumb {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .breadcrumb a {
+            color: #000;
+            text-decoration: underline;
+        }
+        
+        .section {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        
+        .search-controls {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 1em;
+            border: 1px solid #999;
+            background-color: #fff;
+            margin-bottom: 15px;
+        }
+        
+        button {
+            background-color: #000;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 1em;
+            margin-right: 10px;
+        }
+        
+        button:hover {
+            background-color: #333;
+        }
+        
+        button.secondary {
+            background-color: #666;
+        }
+        
+        button.secondary:hover {
+            background-color: #888;
+        }
+        
+        .checkbox-container {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .checkbox-container input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+        
+        .checkbox-container label {
+            margin: 0;
+            font-weight: normal;
+        }
+        
+        .stats {
+            margin-bottom: 15px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .listing {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+        
+        .listing:last-child {
+            border-bottom: none;
+        }
+        
+        .listing-header {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+        
+        .listing-name {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .badge {
+            font-size: 0.75em;
+            padding: 2px 6px;
+            border: 1px solid #000;
+            font-weight: normal;
+        }
+        
+        .badge-vegan {
+            background-color: #000;
+            color: #fff;
+        }
+        
+        .badge-friendly {
+            background-color: #fff;
+            color: #000;
+        }
+        
+        .listing-info {
+            color: #333;
+            font-size: 0.95em;
+            margin-bottom: 3px;
+        }
+        
+        .listing-type {
+            color: #666;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+        
+        .listing-notes {
+            color: #555;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        
+        .no-results {
+            color: #666;
+            font-style: italic;
+            padding: 20px 0;
+        }
+        
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #000;
+            font-size: 0.85em;
+            color: #666;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="index.html">VeganList</a></h1>
+        <div class="breadcrumb">
+            <a href="index.html">home</a> / browse all
+        </div>
+    </header>
+
+    <div class="section">
+        <h2>Browse All Places</h2>
+        
+        <div class="search-controls">
+            <div>
+                <label for="searchLocation">Filter by Location:</label>
+                <input type="text" id="searchLocation" placeholder="Leave blank to see all locations">
+            </div>
+            
+            <div>
+                <label for="searchType">Filter by Type:</label>
+                <select id="searchType">
+                    <option value="all">All Types</option>
+                    <option value="restaurant">Restaurant</option>
+                    <option value="cafe">Cafe</option>
+                    <option value="shop">Shop/Store</option>
+                    <option value="bakery">Bakery</option>
+                    <option value="market">Market</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <div class="checkbox-container">
+                <input type="checkbox" id="showFriendly" checked>
+                <label for="showFriendly">Include vegan-friendly places (not fully vegan)</label>
+            </div>
+            
+            <button onclick="searchListings()">Search</button>
+            <button class="secondary" onclick="clearSearch()">Clear</button>
+        </div>
+        
+        <div class="stats" id="stats"></div>
+        
+        <div id="results"></div>
+    </div>
+
+  <footer>
+        <p><strong>About VeganList:</strong> VeganList is a free, community-maintained resource. No ads, no promoted listings.</p>
+        <p style="margin-top: 10px;">Made with &#9829; for the vegan community. Kindness first.</p>
+    </footer>
+
+    <script>
+        let listings = [];
+        let filteredListings = [];
+
+        async function loadListings() {
+            try {
+                const result = await window.storage.get('veganlist-directory', false);
+                if (result && result.value) {
+                    listings = JSON.parse(result.value);
+                }
+            } catch (error) {
+                listings = [];
+            }
+            searchListings();
+        }
+
+        function searchListings() {
+            const location = document.getElementById('searchLocation').value.toLowerCase().trim();
+            const type = document.getElementById('searchType').value;
+            const showFriendly = document.getElementById('showFriendly').checked;
+            
+            filteredListings = listings.filter(listing => {
+                if (location && !listing.location.toLowerCase().includes(location)) {
+                    return false;
+                }
+                
+                if (type !== 'all' && listing.type !== type) {
+                    return false;
+                }
+                
+                if (!showFriendly && !listing.fullyVegan) {
+                    return false;
+                }
+                
+                return true;
+            });
+            
+            displayResults();
+        }
+
+        function clearSearch() {
+            document.getElementById('searchLocation').value = '';
+            document.getElementById('searchType').value = 'all';
+            document.getElementById('showFriendly').checked = true;
+            searchListings();
+        }
+
+        function displayResults() {
+            const resultsDiv = document.getElementById('results');
+            const statsDiv = document.getElementById('stats');
+            
+            const veganCount = filteredListings.filter(l => l.fullyVegan).length;
+            const friendlyCount = filteredListings.filter(l => !l.fullyVegan).length;
+            statsDiv.textContent = `Showing ${filteredListings.length} places (${veganCount} fully vegan, ${friendlyCount} vegan-friendly)`;
+            
+            if (filteredListings.length === 0) {
+                resultsDiv.innerHTML = '<div class="no-results">No places found. <a href="add.html">Add the first one!</a></div>';
+                return;
+            }
+            
+            const sorted = [...filteredListings].sort((a, b) => 
+                a.name.localeCompare(b.name)
+            );
+            
+            resultsDiv.innerHTML = sorted.map(listing => `
+                <div class="listing">
+                    <div class="listing-header">
+                        <span class="listing-name">${escapeHtml(listing.name)}</span>
+                        <span class="badge ${listing.fullyVegan ? 'badge-vegan' : 'badge-friendly'}">
+                            ${listing.fullyVegan ? 'VEGAN' : 'VEGAN OPTIONS'}
+                        </span>
+                    </div>
+                    <div class="listing-info">${escapeHtml(listing.location)}${listing.address ? ' — ' + escapeHtml(listing.address) : ''}</div>
+                    <div class="listing-type">${escapeHtml(listing.type)}</div>
+                    ${listing.notes ? `<div class="listing-notes">${escapeHtml(listing.notes)}</div>` : ''}
+                </div>
+            `).join('');
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        loadListings();
+    </script>
+</body>
+</html>

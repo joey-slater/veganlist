@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VeganList</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #f5f5f5;
+            color: #183000;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            border-bottom: 2px solid #000;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        h1 a {
+            color: #000;
+            text-decoration: none;
+        }
+        
+        h1 a:hover {
+            text-decoration: underline;
+        }
+        
+        .breadcrumb {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .breadcrumb a {
+            color: #000;
+            text-decoration: underline;
+        }
+        
+        .location-header {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .filter-toggle {
+            background-color: #efefef;
+            padding: 12px;
+            border-left: 3px solid #000;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+        
+        .filter-toggle button {
+            background-color: #000;
+            color: #fff;
+            padding: 6px 12px;
+            border: none;
+            cursor: pointer;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.95em;
+            margin-left: 10px;
+        }
+        
+        .filter-toggle button:hover {
+            background-color: #333;
+        }
+        
+        .section {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            text-transform: uppercase;
+        }
+        
+        .listing {
+            border-bottom: 1px solid #eee;
+            padding: 12px 0;
+        }
+        
+        .listing:last-child {
+            border-bottom: none;
+        }
+        
+        .listing-header {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+        
+        .listing-name {
+            font-weight: bold;
+            font-size: 1.05em;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        
+        .listing-name:hover {
+            color: #333;
+        }
+        
+        .badge {
+            font-size: 0.75em;
+            padding: 2px 6px;
+            border: 1px solid #000;
+            font-weight: normal;
+        }
+        
+        .badge-vegan {
+            background-color: #000;
+            color: #fff;
+        }
+        
+        .badge-friendly {
+            background-color: #fff;
+            color: #000;
+        }
+        
+        .listing-info {
+            color: #333;
+            font-size: 0.9em;
+            margin-bottom: 3px;
+        }
+        
+        .listing-notes {
+            color: #555;
+            font-size: 0.9em;
+            font-style: italic;
+            margin-top: 5px;
+        }
+        
+        .comments-section {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #fafafa;
+            border: 1px solid #ddd;
+        }
+        
+        .comments-section.expanded {
+            display: block;
+        }
+        
+        .comment {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comment:last-of-type {
+            border-bottom: none;
+        }
+        
+        .comment-meta {
+            font-size: 0.85em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .comment-text {
+            font-size: 0.9em;
+        }
+        
+        .add-comment {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+        }
+        
+        .add-comment textarea {
+            width: 100%;
+            padding: 8px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9em;
+            border: 1px solid #999;
+            background-color: #fff;
+            margin-bottom: 8px;
+            resize: vertical;
+        }
+        
+        .add-comment button {
+            background-color: #000;
+            color: #fff;
+            padding: 6px 14px;
+            border: none;
+            cursor: pointer;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9em;
+        }
+        
+        .add-comment button:hover {
+            background-color: #333;
+        }
+        
+        .no-comments {
+            color: #999;
+            font-style: italic;
+            font-size: 0.9em;
+        }
+        
+        .empty-category {
+            color: #999;
+            font-style: italic;
+            padding: 10px 0;
+        }
+        
+        .action-links {
+            margin: 20px 0;
+        }
+        
+        .action-links a {
+            color: #000;
+            text-decoration: underline;
+            margin-right: 20px;
+        }
+        
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #000;
+            font-size: 0.85em;
+            color: #666;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+            
+            .location-header {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="index.html">VeganList</a></h1>
+        <div class="breadcrumb">
+            <a href="index.html">home</a> / <span id="locationBreadcrumb"></span>
+        </div>
+    </header>
+
+    <div class="location-header" id="locationHeader"></div>
+    
+    <div class="filter-toggle">
+        <span id="filterStatus">Currently showing: 100% vegan places</span>
+        <button id="toggleButton" onclick="toggleFilter()">Show vegan-friendly options</button>
+    </div>
+
+    <div id="categoriesContainer"></div>
+
+    <div class="action-links">
+        <a href="add.html">add a place to this location</a>
+        <a href="browse.html">browse all places</a>
+    </div>
+
+     <footer>
+        <p><strong>About VeganList:</strong> VeganList is a free, community-maintained resource. No ads, no promoted listings.</p>
+        <p style="margin-top: 10px;">Made with &#9829; for the vegan community. Kindness first.</p>
+    </footer>
+
+    <script>
+        let listings = [];
+        let comments = [];
+        let showFriendly = false;
+        const urlParams = new URLSearchParams(window.location.search);
+        const locationParam = urlParams.get('location');
+
+        async function loadData() {
+            try {
+                // Load listings
+                const listingsResult = await window.storage.get('veganlist-directory', false);
+                if (listingsResult && listingsResult.value) {
+                    listings = JSON.parse(listingsResult.value);
+                }
+
+                // Load comments
+                try {
+                    const commentsResult = await window.storage.get('veganlist-comments', false);
+                    if (commentsResult && commentsResult.value) {
+                        comments = JSON.parse(commentsResult.value);
+                    }
+                } catch (error) {
+                    comments = [];
+                }
+
+                displayLocation();
+            } catch (error) {
+                console.error('Error loading data:', error);
+            }
+        }
+
+        function toggleFilter() {
+            showFriendly = !showFriendly;
+            const statusEl = document.getElementById('filterStatus');
+            const buttonEl = document.getElementById('toggleButton');
+            
+            if (showFriendly) {
+                statusEl.textContent = 'Currently showing: 100% vegan + vegan-friendly places';
+                buttonEl.textContent = 'Hide vegan-friendly options';
+            } else {
+                statusEl.textContent = 'Currently showing: 100% vegan places';
+                buttonEl.textContent = 'Show vegan-friendly options';
+            }
+            
+            displayLocation();
+        }
+
+        function displayLocation() {
+            if (!locationParam) {
+                document.getElementById('locationHeader').textContent = 'Location not found';
+                return;
+            }
+
+            document.getElementById('locationHeader').textContent = locationParam;
+            document.getElementById('locationBreadcrumb').textContent = locationParam;
+            document.title = `${locationParam} - VeganList`;
+
+            // Filter listings for this location
+            let locationListings = listings.filter(l => l.location === locationParam);
+            
+            // Apply vegan filter
+            if (!showFriendly) {
+                locationListings = locationListings.filter(l => l.fullyVegan);
+            }
+
+            // Group by type
+            const categories = {
+                restaurant: 'Restaurants',
+                cafe: 'Cafes',
+                bakery: 'Bakeries',
+                shop: 'Shops & Stores',
+                market: 'Markets',
+                other: 'Other'
+            };
+
+            const grouped = {};
+            Object.keys(categories).forEach(key => {
+                grouped[key] = locationListings.filter(l => l.type === key);
+            });
+
+            // Display categories
+            const container = document.getElementById('categoriesContainer');
+            container.innerHTML = Object.keys(categories).map(type => {
+                const categoryListings = grouped[type];
+                
+                if (categoryListings.length === 0) {
+                    return '';
+                }
+
+                const listingsHTML = categoryListings
+                    .sort((a, b) => a.name.localeCompare(b.name))
+                    .map((listing, index) => {
+                        const listingId = `${locationParam}-${type}-${index}`;
+                        const listingComments = comments.filter(c => c.listingId === listingId);
+                        
+                        return `
+                            <div class="listing">
+                                <div class="listing-header">
+                                    <span class="listing-name" onclick="toggleComments('${listingId}')">
+                                        ${escapeHtml(listing.name)}
+                                    </span>
+                                    <span class="badge ${listing.fullyVegan ? 'badge-vegan' : 'badge-friendly'}">
+                                        ${listing.fullyVegan ? 'VEGAN' : 'VEGAN OPTIONS'}
+                                    </span>
+                                </div>
+                                ${listing.address ? `<div class="listing-info">${escapeHtml(listing.address)}</div>` : ''}
+                                ${listing.notes ? `<div class="listing-notes">${escapeHtml(listing.notes)}</div>` : ''}
+                                
+                                <div class="comments-section" id="comments-${listingId}">
+                                    <div id="comments-list-${listingId}">
+                                        ${listingComments.length === 0 ? 
+                                            '<div class="no-comments">No comments yet. Be the first!</div>' :
+                                            listingComments.map(c => `
+                                                <div class="comment">
+                                                    <div class="comment-meta">${formatDate(c.date)}</div>
+                                                    <div class="comment-text">${escapeHtml(c.text)}</div>
+                                                </div>
+                                            `).join('')
+                                        }
+                                    </div>
+                                    <div class="add-comment">
+                                        <textarea id="comment-input-${listingId}" rows="3" placeholder="Add a comment..."></textarea>
+                                        <button onclick="addComment('${listingId}')">Post Comment</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+
+                return `
+                    <div class="section">
+                        <h2>${categories[type]}</h2>
+                        ${listingsHTML}
+                    </div>
+                `;
+            }).filter(html => html !== '').join('');
+
+            if (container.innerHTML === '') {
+                container.innerHTML = '<div class="section"><div class="empty-category">No listings found for this location.</div></div>';
+            }
+        }
+
+        function toggleComments(listingId) {
+            const commentsSection = document.getElementById(`comments-${listingId}`);
+            commentsSection.classList.toggle('expanded');
+        }
+
+        async function addComment(listingId) {
+            const input = document.getElementById(`comment-input-${listingId}`);
+            const text = input.value.trim();
+            
+            if (!text) return;
+
+            const newComment = {
+                listingId: listingId,
+                text: text,
+                date: new Date().toISOString()
+            };
+
+            comments.push(newComment);
+            
+            try {
+                await window.storage.set('veganlist-comments', JSON.stringify(comments), false);
+                input.value = '';
+                displayLocation();
+                
+                // Re-expand the comments section
+                document.getElementById(`comments-${listingId}`).classList.add('expanded');
+            } catch (error) {
+                console.error('Error saving comment:', error);
+                alert('Error saving comment. Please try again.');
+            }
+        }
+
+        function formatDate(isoString) {
+            const date = new Date(isoString);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+            });
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        loadData();
+    </script>
+</body>
+</html>

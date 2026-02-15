@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a Place - VeganList</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #f5f5f5;
+            color: #183000;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        header {
+            border-bottom: 2px solid #000;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        h1 a {
+            color: #000;
+            text-decoration: none;
+        }
+        
+        h1 a:hover {
+            text-decoration: underline;
+        }
+        
+        .breadcrumb {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .breadcrumb a {
+            color: #000;
+            text-decoration: underline;
+        }
+        
+        .section {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        
+        .intro {
+            font-size: 0.95em;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .form-row {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input[type="text"], select, textarea {
+            width: 100%;
+            padding: 8px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 1em;
+            border: 1px solid #999;
+            background-color: #fff;
+        }
+        
+        textarea {
+            resize: vertical;
+        }
+        
+        .help-text {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 3px;
+        }
+        
+        .checkbox-container {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .checkbox-container input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+        
+        .checkbox-container label {
+            margin: 0;
+            font-weight: normal;
+        }
+        
+        button {
+            background-color: #000;
+            color: #fff;
+            padding: 12px 24px;
+            border: none;
+            cursor: pointer;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 1em;
+        }
+        
+        button:hover {
+            background-color: #333;
+        }
+        
+        .success-message {
+            background-color: #efefef;
+            border-left: 3px solid #000;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #000;
+            font-size: 0.85em;
+            color: #666;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="index.html">VeganList</a></h1>
+        <div class="breadcrumb">
+            <a href="index.html">home</a> / add a place
+        </div>
+    </header>
+
+    <div class="section">
+        <h2>Add a Place</h2>
+        
+        <div class="intro">
+            Help grow the community directory. No account required, no approval process. Just add what you know and help others find vegan food.
+        </div>
+        
+        <div id="successMessage" style="display: none;" class="success-message">
+            Thanks for contributing! Your listing has been added. <a href="index.html">Return to home</a>
+        </div>
+        
+        <form id="addForm">
+            <div class="form-row">
+                <label for="placeName">Name of Place *</label>
+                <input type="text" id="placeName" required>
+            </div>
+            
+            <div class="form-row">
+                <label for="placeType">Type *</label>
+                <select id="placeType" required>
+                    <option value="">Select type...</option>
+                    <option value="restaurant">Restaurant</option>
+                    <option value="cafe">Cafe</option>
+                    <option value="shop">Shop/Store</option>
+                    <option value="bakery">Bakery</option>
+                    <option value="market">Market</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <div class="form-row">
+                <label for="placeLocation">Location *</label>
+                <input type="text" id="placeLocation" placeholder="City, neighborhood, or area" required>
+                <div class="help-text">This is how people will find it. Be consistent with existing locations (e.g., "Brooklyn" not "Brooklyn, NY")</div>
+            </div>
+            
+            <div class="form-row">
+                <label for="placeAddress">Street Address</label>
+                <input type="text" id="placeAddress" placeholder="Optional but helpful">
+            </div>
+            
+            <div class="checkbox-container">
+                <input type="checkbox" id="placeFullyVegan" checked>
+                <label for="placeFullyVegan">This place is 100% vegan (uncheck if it just has vegan options)</label>
+            </div>
+            
+            <div class="form-row">
+                <label for="placeNotes">Notes/Description</label>
+                <textarea id="placeNotes" rows="4" placeholder="What should people know? What's good? Any tips?"></textarea>
+                <div class="help-text">Optional but appreciated. Keep it useful and honest.</div>
+            </div>
+            
+            <button type="submit">Add to Directory</button>
+        </form>
+    </div>
+
+  <footer>
+        <p><strong>About VeganList:</strong> VeganList is a free, community-maintained resource. No ads, no promoted listings.</p>
+        <p style="margin-top: 10px;">Made with &#9829; for the vegan community. Kindness first.</p>
+    </footer>
+
+    <script>
+        document.getElementById('addForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const newListing = {
+                name: document.getElementById('placeName').value.trim(),
+                type: document.getElementById('placeType').value,
+                location: document.getElementById('placeLocation').value.trim(),
+                address: document.getElementById('placeAddress').value.trim(),
+                fullyVegan: document.getElementById('placeFullyVegan').checked,
+                notes: document.getElementById('placeNotes').value.trim(),
+                dateAdded: new Date().toISOString()
+            };
+            
+            // Load existing listings
+            let listings = [];
+            try {
+                const result = await window.storage.get('veganlist-directory', false);
+                if (result && result.value) {
+                    listings = JSON.parse(result.value);
+                }
+            } catch (error) {
+                listings = [];
+            }
+            
+            listings.push(newListing);
+            
+            try {
+                await window.storage.set('veganlist-directory', JSON.stringify(listings), false);
+                
+                // Show success message
+                document.getElementById('successMessage').style.display = 'block';
+                
+                // Reset form
+                this.reset();
+                document.getElementById('placeFullyVegan').checked = true;
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } catch (error) {
+                console.error('Error saving listing:', error);
+                alert('Error saving listing. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>
