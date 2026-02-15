@@ -243,21 +243,17 @@
                 dateAdded: new Date().toISOString()
             };
             
-            // Load existing listings
-            let listings = [];
-            try {
-                const result = await window.storage.get('veganlist-directory', false);
-                if (result && result.value) {
-                    listings = JSON.parse(result.value);
-                }
-            } catch (error) {
-                listings = [];
-            }
-            
-            listings.push(newListing);
-            
-            try {
-                await window.storage.set('veganlist-directory', JSON.stringify(listings), false);
+          // Load existing listings
+let listings = [];
+const data = localStorage.getItem('veganlist-directory');
+if (data) {
+    listings = JSON.parse(data);
+}
+
+listings.push(newListing);
+
+try {
+    localStorage.setItem('veganlist-directory', JSON.stringify(listings));
                 
                 // Show success message
                 document.getElementById('successMessage').style.display = 'block';
