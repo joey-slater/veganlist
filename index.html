@@ -157,14 +157,14 @@
     </footer>
 
     <script>
-        async function loadCities() {
-            try {
-                const result = await window.storage.get('veganlist-directory', false);
-                let listings = [];
-                
-                if (result && result.value) {
-                    listings = JSON.parse(result.value);
-                }
+      function loadCities() {
+    try {
+        const data = localStorage.getItem('veganlist-directory');
+        let listings = [];
+        
+        if (data) {
+            listings = JSON.parse(data);
+        }
                 
                 if (listings.length === 0) {
                     document.getElementById('citiesList').innerHTML = `
