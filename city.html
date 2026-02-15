@@ -294,25 +294,21 @@
         const urlParams = new URLSearchParams(window.location.search);
         const locationParam = urlParams.get('location');
 
-        async function loadData() {
-            try {
-                // Load listings
-                const listingsResult = await window.storage.get('veganlist-directory', false);
-                if (listingsResult && listingsResult.value) {
-                    listings = JSON.parse(listingsResult.value);
-                }
+       function loadData() {
+    // Load listings
+    const listingsData = localStorage.getItem('veganlist-directory');
+    if (listingsData) {
+        listings = JSON.parse(listingsData);
+    }
 
-                // Load comments
-                try {
-                    const commentsResult = await window.storage.get('veganlist-comments', false);
-                    if (commentsResult && commentsResult.value) {
-                        comments = JSON.parse(commentsResult.value);
-                    }
-                } catch (error) {
-                    comments = [];
-                }
+    // Load comments
+    const commentsData = localStorage.getItem('veganlist-comments');
+    if (commentsData) {
+        comments = JSON.parse(commentsData);
+    }
 
-                displayLocation();
+    displayLocation();
+}
             } catch (error) {
                 console.error('Error loading data:', error);
             }
@@ -449,7 +445,7 @@
             comments.push(newComment);
             
             try {
-                await window.storage.set('veganlist-comments', JSON.stringify(comments), false);
+                localStorage.setItem('veganlist-comments', JSON.stringify(comments), false);
                 input.value = '';
                 displayLocation();
                 
