@@ -267,17 +267,13 @@
         let listings = [];
         let filteredListings = [];
 
-        async function loadListings() {
-            try {
-                const result = await window.storage.get('veganlist-directory', false);
-                if (result && result.value) {
-                    listings = JSON.parse(result.value);
-                }
-            } catch (error) {
-                listings = [];
-            }
-            searchListings();
-        }
+       function loadListings() {
+    const data = localStorage.getItem('veganlist-directory');
+    if (data) {
+        listings = JSON.parse(data);
+    }
+    searchListings();
+}
 
         function searchListings() {
             const location = document.getElementById('searchLocation').value.toLowerCase().trim();
