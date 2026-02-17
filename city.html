@@ -80,6 +80,20 @@
         .filter-toggle button:hover {
             background-color: #333;
         }
+
+        .filter-check {
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.listing-types {
+    font-size: 0.85em;
+    color: #666;
+    margin-bottom: 3px;
+}
         
         .section {
             background-color: #fff;
@@ -270,10 +284,14 @@
 
     <div class="location-header" id="locationHeader"></div>
     
-    <div class="filter-toggle">
-        <span id="filterStatus">Currently showing: 100% vegan places</span>
-        <button id="toggleButton" onclick="toggleFilter()">Show vegan-friendly options</button>
+   <div class="filter-toggle">
+    <span id="filterStatus">Currently showing: 100% vegan places</span>
+    <button id="toggleButton" onclick="toggleFilter()">Show vegan-friendly options</button>
+    <div style="margin-top: 10px;">
+        <strong>Filter by type:</strong>
+        <div id="typeFilters" style="display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;"></div>
     </div>
+</div>
 
     <div id="categoriesContainer"></div>
 
@@ -287,97 +305,128 @@
         <p style="margin-top: 10px;">Made with &#9829; for the vegan community. Kindness first.</p>
     </footer>
 
-    <script>
-        let listings = [];
-        let comments = [];
-        let showFriendly = false;
-        const urlParams = new URLSearchParams(window.location.search);
-        const locationParam = urlParams.get('location');
+   <script>
+    let listings = [];
+    let comments = [];
+    let showFriendly = false;
+    let activeFilters = [];
+    const urlParams = new URLSearchParams(window.location.search);
+    const locationParam = urlParams.get('location');
 
-       function loadData() {
-    // Load listings
-    const listingsData = localStorage.getItem('veganlist-directory');
-    if (listingsData) {
-        listings = JSON.parse(listingsData);
-    }
+    const CATEGORIES = {
+        restaurant: 'Restaurants',
+        cafe: 'Cafes',
+        bakery: 'Bakeries',
+        deli: 'Delis',
+        grocery: 'Grocery',
+        market: 'Markets',
+        shop: 'Shops & Stores',
+        meetup: 'Meetups',
+        other: 'Other'
+    };
 
-    // Load comments
-    const commentsData = localStorage.getItem('veganlist-comments');
-    if (commentsData) {
-        comments = JSON.parse(commentsData);
-    }
-
-    displayLocation();
-}
-            } catch (error) {
-                console.error('Error loading data:', error);
-            }
+    function loadData() {
+        const listingsData = localStorage.getItem('veganlist-directory');
+        if (listingsData) {
+            listings = JSON.parse(listingsData);
         }
 
-        function toggleFilter() {
-            showFriendly = !showFriendly;
-            const statusEl = document.getElementById('filterStatus');
-            const buttonEl = document.getElementById('toggleButton');
-            
-            if (showFriendly) {
-                statusEl.textContent = 'Currently showing: 100% vegan + vegan-friendly places';
-                buttonEl.textContent = 'Hide vegan-friendly options';
-            } else {
-                statusEl.textContent = 'Currently showing: 100% vegan places';
-                buttonEl.textContent = 'Show vegan-friendly options';
-            }
-            
-            displayLocation();
+        const commentsData = localStorage.getItem('veganlist-comments');
+        if (commentsData) {
+            comments = JSON.parse(commentsData);
         }
 
-        function displayLocation() {
-            if (!locationParam) {
-                document.getElementById('locationHeader').textContent = 'Location not found';
-                return;
-            }
+        renderFilters();
+        displayLocation();
+    }
 
-            document.getElementById('locationHeader').textContent = locationParam;
-            document.getElementById('locationBreadcrumb').textContent = locationParam;
-            document.title = `${locationParam} - VeganList`;
+    function renderFilters() {
+        // Work out which categories actually have listings in this city
+        let locationListings = listings.filter(l => l.location === locationParam);
+        const presentTypes = new Set();
+        locationListings.forEach(l => {
+            const types = Array.isArray(l.type) ? l.type : [l.type];
+            types.forEach(t => presentTypes.add(t));
+        });
 
-            // Filter listings for this location
-            let locationListings = listings.filter(l => l.location === locationParam);
-            
-            // Apply vegan filter
-            if (!showFriendly) {
-                locationListings = locationListings.filter(l => l.fullyVegan);
-            }
+        const filtersHTML = Object.keys(CATEGORIES)
+            .filter(type => presentTypes.has(type))
+            .map(type => `
+                <label class="filter-check">
+                    <input type="checkbox" value="${type}" checked onchange="updateFilters()">
+                    ${CATEGORIES[type]}
+                </label>
+            `).join('');
 
-            // Group by type
-            const categories = {
-                restaurant: 'Restaurants',
-                cafe: 'Cafes',
-                bakery: 'Bakeries',
-                shop: 'Shops & Stores',
-                market: 'Markets',
-                other: 'Other'
-            };
+        document.getElementById('typeFilters').innerHTML = filtersHTML;
 
-            const grouped = {};
-            Object.keys(categories).forEach(key => {
-                grouped[key] = locationListings.filter(l => l.type === key);
+        // Set activeFilters to all by default
+        activeFilters = Object.keys(CATEGORIES).filter(type => presentTypes.has(type));
+    }
+
+    function updateFilters() {
+        activeFilters = Array.from(document.querySelectorAll('#typeFilters input:checked'))
+            .map(cb => cb.value);
+        displayLocation();
+    }
+
+    function toggleFilter() {
+        showFriendly = !showFriendly;
+        const statusEl = document.getElementById('filterStatus');
+        const buttonEl = document.getElementById('toggleButton');
+
+        if (showFriendly) {
+            statusEl.textContent = 'Currently showing: 100% vegan + vegan-friendly places';
+            buttonEl.textContent = 'Hide vegan-friendly options';
+        } else {
+            statusEl.textContent = 'Currently showing: 100% vegan places';
+            buttonEl.textContent = 'Show vegan-friendly options';
+        }
+
+        displayLocation();
+    }
+
+    function displayLocation() {
+        if (!locationParam) {
+            document.getElementById('locationHeader').textContent = 'Location not found';
+            return;
+        }
+
+        document.getElementById('locationHeader').textContent = locationParam;
+        document.getElementById('locationBreadcrumb').textContent = locationParam;
+        document.title = `${locationParam} - VeganList`;
+
+        let locationListings = listings.filter(l => l.location === locationParam);
+
+        if (!showFriendly) {
+            locationListings = locationListings.filter(l => l.fullyVegan);
+        }
+
+        // Group by type - a listing can appear in multiple categories
+        const grouped = {};
+        Object.keys(CATEGORIES).forEach(key => { grouped[key] = []; });
+
+        locationListings.forEach(listing => {
+            const types = Array.isArray(listing.type) ? listing.type : [listing.type];
+            types.forEach(type => {
+                if (grouped[type]) grouped[type].push(listing);
             });
+        });
 
-            // Display categories
-            const container = document.getElementById('categoriesContainer');
-            container.innerHTML = Object.keys(categories).map(type => {
+        const container = document.getElementById('categoriesContainer');
+        container.innerHTML = Object.keys(CATEGORIES)
+            .filter(type => activeFilters.includes(type))
+            .map(type => {
                 const categoryListings = grouped[type];
-                
-                if (categoryListings.length === 0) {
-                    return '';
-                }
+                if (categoryListings.length === 0) return '';
 
                 const listingsHTML = categoryListings
                     .sort((a, b) => a.name.localeCompare(b.name))
                     .map((listing, index) => {
                         const listingId = `${locationParam}-${type}-${index}`;
                         const listingComments = comments.filter(c => c.listingId === listingId);
-                        
+                        const types = Array.isArray(listing.type) ? listing.type : [listing.type];
+
                         return `
                             <div class="listing">
                                 <div class="listing-header">
@@ -388,12 +437,14 @@
                                         ${listing.fullyVegan ? 'VEGAN' : 'VEGAN OPTIONS'}
                                     </span>
                                 </div>
+                                <div class="listing-types">
+                                    ${types.map(t => CATEGORIES[t] || t).join(', ')}
+                                </div>
                                 ${listing.address ? `<div class="listing-info">${escapeHtml(listing.address)}</div>` : ''}
                                 ${listing.notes ? `<div class="listing-notes">${escapeHtml(listing.notes)}</div>` : ''}
-                                
                                 <div class="comments-section" id="comments-${listingId}">
                                     <div id="comments-list-${listingId}">
-                                        ${listingComments.length === 0 ? 
+                                        ${listingComments.length === 0 ?
                                             '<div class="no-comments">No comments yet. Be the first!</div>' :
                                             listingComments.map(c => `
                                                 <div class="comment">
@@ -414,65 +465,62 @@
 
                 return `
                     <div class="section">
-                        <h2>${categories[type]}</h2>
+                        <h2>${CATEGORIES[type]}</h2>
                         ${listingsHTML}
                     </div>
                 `;
             }).filter(html => html !== '').join('');
 
-            if (container.innerHTML === '') {
-                container.innerHTML = '<div class="section"><div class="empty-category">No listings found for this location.</div></div>';
-            }
+        if (container.innerHTML === '') {
+            container.innerHTML = '<div class="section"><div class="empty-category">No listings found for this location.</div></div>';
         }
+    }
 
-        function toggleComments(listingId) {
-            const commentsSection = document.getElementById(`comments-${listingId}`);
-            commentsSection.classList.toggle('expanded');
+    function toggleComments(listingId) {
+        const commentsSection = document.getElementById(`comments-${listingId}`);
+        commentsSection.classList.toggle('expanded');
+    }
+
+    function addComment(listingId) {
+        const input = document.getElementById(`comment-input-${listingId}`);
+        const text = input.value.trim();
+        if (!text) return;
+
+        const newComment = {
+            listingId: listingId,
+            text: text,
+            date: new Date().toISOString()
+        };
+
+        comments.push(newComment);
+
+        try {
+            localStorage.setItem('veganlist-comments', JSON.stringify(comments));
+            input.value = '';
+            displayLocation();
+            document.getElementById(`comments-${listingId}`).classList.add('expanded');
+        } catch (error) {
+            console.error('Error saving comment:', error);
+            alert('Error saving comment. Please try again.');
         }
+    }
 
-        async function addComment(listingId) {
-            const input = document.getElementById(`comment-input-${listingId}`);
-            const text = input.value.trim();
-            
-            if (!text) return;
+    function formatDate(isoString) {
+        const date = new Date(isoString);
+        return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+    }
 
-            const newComment = {
-                listingId: listingId,
-                text: text,
-                date: new Date().toISOString()
-            };
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
 
-            comments.push(newComment);
-            
-            try {
-                localStorage.setItem('veganlist-comments', JSON.stringify(comments), false);
-                input.value = '';
-                displayLocation();
-                
-                // Re-expand the comments section
-                document.getElementById(`comments-${listingId}`).classList.add('expanded');
-            } catch (error) {
-                console.error('Error saving comment:', error);
-                alert('Error saving comment. Please try again.');
-            }
-        }
-
-        function formatDate(isoString) {
-            const date = new Date(isoString);
-            return date.toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'short', 
-                day: 'numeric' 
-            });
-        }
-
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        loadData();
-    </script>
+    loadData();
+</script>
 </body>
 </html>
