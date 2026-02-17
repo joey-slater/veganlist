@@ -162,72 +162,66 @@
     </footer>
 
     <script>
-      function loadCities() {
-    try {
+    const PRESET_CITIES = {
+        'US': ['Chicago', 'Los Angeles', 'New York', 'Portland', 'San Francisco', 'Seattle'],
+        'UK': ['Bristol', 'Edinburgh', 'London', 'Manchester']
+    };
+
+    function loadCities() {
         const data = localStorage.getItem('veganlist-directory');
         let listings = [];
-        
         if (data) {
             listings = JSON.parse(data);
         }
-                
-                if (listings.length === 0) {
-                    document.getElementById('citiesList').innerHTML = `
-                        <div class="empty-state">
-                            No listings yet. Be the first to <a href="add.html">add a place</a>!
-                        </div>
-                    `;
-                    return;
-                }
-                
-                // Group listings by location (city)
-                const cityCounts = {};
-                listings.forEach(listing => {
-                    const city = listing.location;
-                    if (!cityCounts[city]) {
-                        cityCounts[city] = 0;
-                    }
-                    cityCounts[city]++;
-                });
-                
-                // Sort cities alphabetically
-                const sortedCities = Object.keys(cityCounts).sort();
-                
-                // Generate city links
-                const citiesHTML = sortedCities.map(city => {
-                    const count = cityCounts[city];
-                    const encoded = encodeURIComponent(city);
-                    return `
-                        <a href="city.html?location=${encoded}" class="city-link">
-                            <div class="city-name">${escapeHtml(city)}</div>
-                            <div class="city-count">${count} ${count === 1 ? 'place' : 'places'}</div>
-                        </a>
-                    `;
-                }).join('');
-                
-                document.getElementById('citiesList').innerHTML = `
-                    <div class="cities-grid">
-                        ${citiesHTML}
-                    </div>
-                `;
-                
-            } catch (error) {
-                console.error('Error loading cities:', error);
-                document.getElementById('citiesList').innerHTML = `
-                    <div class="empty-state">
-                        No listings yet. Be the first to <a href="add.html">add a place</a>!
-                    </div>
-                `;
-            }
+
+        // Count listings per city
+        const cityCounts = {};
+        listings.forEach(listing => {
+            const city = listing.location;
+            if (!cityCounts[city]) cityCounts[city] = 0;
+            cityCounts[city]++;
+        });
+
+        // Build city links per region
+        let html = '';
+        Object.keys(PRESET_CITIES).forEach(region => {
+            html += `<p><strong>${region}</strong></p>`;
+            html += `<div class="cities-grid">`;
+            PRESET_CITIES[region].forEach(city => {
+                const count = cityCounts[city] || 0;
+                const encoded = encodeURIComponent(city);
+                const countText = count > 0 ? ` (${count})` : '';
+                html += `<a href="city.html?location=${encoded}" class="city-link">${escapeHtml(city)}${countText}</a>`;
+            });
+            html += `</div><br>`;
+        });
+
+        // Also show any custom cities not in the preset list
+        const customCities = Object.keys(cityCounts)
+            .filter(city => !Object.values(PRESET_CITIES).flat().includes(city))
+            .sort();
+
+        if (customCities.length > 0) {
+            html += `<p><strong>Other</strong></p>`;
+            html += `<div class="cities-grid">`;
+            customCities.forEach(city => {
+                const count = cityCounts[city];
+                const encoded = encodeURIComponent(city);
+                html += `<a href="city.html?location=${encoded}" class="city-link">${escapeHtml(city)} (${count})</a>`;
+            });
+            html += `</div>`;
         }
-        
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-        
-        loadCities();
-    </script>
+
+        document.getElementById('citiesList').innerHTML = html;
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    loadCities();
+</script>
 </body>
 </html>
