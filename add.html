@@ -133,6 +133,28 @@
         button:hover {
             background-color: #333;
         }
+
+        .preset-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 5px;
+}
+
+.city-preset-btn {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #999;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.9em;
+}
+
+.city-preset-btn:hover, .city-preset-btn.selected {
+    background-color: #000;
+    color: #fff;
+}
         
         .success-message {
             background-color: #efefef;
@@ -199,10 +221,28 @@
             </div>
             
             <div class="form-row">
-                <label for="placeLocation">Location *</label>
-                <input type="text" id="placeLocation" placeholder="City, neighborhood, or area" required>
-                <div class="help-text">This is how people will find it. Be consistent with existing locations (e.g., "Brooklyn" not "Brooklyn, NY")</div>
-            </div>
+    <label for="placeLocation">Location *</label>
+    <div class="cities-preset">
+        <p style="font-size:0.9em; margin-bottom:8px;">Select a city:</p>
+        <p style="font-size:0.85em; color:#666; margin-bottom:5px;">US</p>
+        <div class="preset-buttons">
+            <button type="button" class="city-preset-btn" onclick="selectCity('Chicago')">Chicago</button>
+            <button type="button" class="city-preset-btn" onclick="selectCity('Los Angeles')">Los Angeles</button>
+            <button type="button" class="city-preset-btn" onclick="selectCity('New York')">New York</button>
+            <button type="button" class="city-preset-btn" onclick="selectCity('Portland')">Portland</button>
+            <button type="button" class="city-preset-btn" onclick="selectCity('San Francisco')">San Francisco</button>
+            <button type="button" class="city-preset-btn" onclick="selectCity('Seattle')">Seattle</button>
+        </div>
+        <p style="font-size:0.85em; color:#666; margin-top:10px; margin-bottom:5px;">UK</p>
+        <div class="preset-buttons">
+            <button type="button" class="city-preset-btn" onclick="selectCity('Bristol')">Bristol</button>
+            <button type="button" class="city-preset-btn" onclick="selectCity('Edinburgh')">Edinburgh</button>
+            <button type="button" class="city-preset-btn" onclick="selectCity('London')">London</button>
+            <button type="button" class="city-preset-btn" onclick="selectCity('Manchester')">Manchester</button>
+        </div>
+       </div>
+<input type="hidden" id="placeLocation">
+</div>
             
             <div class="form-row">
                 <label for="placeAddress">Street Address</label>
@@ -230,45 +270,50 @@
     </footer>
 
     <script>
-        document.getElementById('addForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const newListing = {
-                name: document.getElementById('placeName').value.trim(),
-                type: document.getElementById('placeType').value,
-                location: document.getElementById('placeLocation').value.trim(),
-                address: document.getElementById('placeAddress').value.trim(),
-                fullyVegan: document.getElementById('placeFullyVegan').checked,
-                notes: document.getElementById('placeNotes').value.trim(),
-                dateAdded: new Date().toISOString()
-            };
-            
-          // Load existing listings
-let listings = [];
-const data = localStorage.getItem('veganlist-directory');
-if (data) {
-    listings = JSON.parse(data);
-}
-
-listings.push(newListing);
-
-try {
-    localStorage.setItem('veganlist-directory', JSON.stringify(listings));
-                
-                // Show success message
-                document.getElementById('successMessage').style.display = 'block';
-                
-                // Reset form
-                this.reset();
-                document.getElementById('placeFullyVegan').checked = true;
-                
-                // Scroll to top
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } catch (error) {
-                console.error('Error saving listing:', error);
-                alert('Error saving listing. Please try again.');
-            }
+    function selectCity(city) {
+        document.getElementById('placeLocation').value = city;
+        document.querySelectorAll('.city-preset-btn').forEach(btn => {
+            btn.classList.toggle('selected', btn.textContent === city);
         });
-    </script>
+    }
+
+    // Select New York by default
+    selectCity('New York');
+
+    document.getElementById('addForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const newListing = {
+            name: document.getElementById('placeName').value.trim(),
+            type: document.getElementById('placeType').value,
+            location: document.getElementById('placeLocation').value.trim(),
+            address: document.getElementById('placeAddress').value.trim(),
+            fullyVegan: document.getElementById('placeFullyVegan').checked,
+            notes: document.getElementById('placeNotes').value.trim(),
+            dateAdded: new Date().toISOString()
+        };
+        
+        // Load existing listings
+        let listings = [];
+        const data = localStorage.getItem('veganlist-directory');
+        if (data) {
+            listings = JSON.parse(data);
+        }
+        
+        listings.push(newListing);
+        
+        try {
+            localStorage.setItem('veganlist-directory', JSON.stringify(listings));
+            document.getElementById('successMessage').style.display = 'block';
+            this.reset();
+            document.getElementById('placeFullyVegan').checked = true;
+            selectCity('New York');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } catch (error) {
+            console.error('Error saving listing:', error);
+            alert('Error saving listing. Please try again.');
+        }
+    });
+</script>
 </body>
 </html>
