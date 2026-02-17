@@ -119,6 +119,21 @@
             margin: 0;
             font-weight: normal;
         }
+
+        .type-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.type-check {
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
         
         button {
             background-color: #000;
@@ -286,9 +301,17 @@
     document.getElementById('addForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
-        const newListing = {
-            name: document.getElementById('placeName').value.trim(),
-            type: document.getElementById('placeType').value,
+     const selectedTypes = Array.from(document.querySelectorAll('input[name="placeType"]:checked'))
+    .map(cb => cb.value);
+
+if (selectedTypes.length === 0) {
+    alert('Please select at least one type.');
+    return;
+}
+
+const newListing = {
+    name: document.getElementById('placeName').value.trim(),
+    type: selectedTypes,
             location: document.getElementById('placeLocation').value.trim(),
             address: document.getElementById('placeAddress').value.trim(),
             fullyVegan: document.getElementById('placeFullyVegan').checked,
@@ -309,8 +332,9 @@
             localStorage.setItem('veganlist-directory', JSON.stringify(listings));
             document.getElementById('successMessage').style.display = 'block';
             this.reset();
-            document.getElementById('placeFullyVegan').checked = true;
-            selectCity('New York');
+document.getElementById('placeFullyVegan').checked = true;
+selectCity('New York');
+document.querySelectorAll('input[name="placeType"]').forEach(cb => cb.checked = false);
             window.scrollTo({ top: 0, behavior: 'smooth' });
         } catch (error) {
             console.error('Error saving listing:', error);
