@@ -207,18 +207,21 @@
                 <input type="text" id="placeName" required>
             </div>
             
-            <div class="form-row">
-                <label for="placeType">Type *</label>
-                <select id="placeType" required>
-                    <option value="">Select type...</option>
-                    <option value="restaurant">Restaurant</option>
-                    <option value="cafe">Cafe</option>
-                    <option value="shop">Shop/Store</option>
-                    <option value="bakery">Bakery</option>
-                    <option value="market">Market</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
+           <div class="form-row">
+    <label>Type * (select all that apply)</label>
+    <div class="type-checkboxes">
+        <label class="type-check"><input type="checkbox" name="placeType" value="restaurant"> Restaurant</label>
+        <label class="type-check"><input type="checkbox" name="placeType" value="cafe"> Cafe</label>
+        <label class="type-check"><input type="checkbox" name="placeType" value="bakery"> Bakery</label>
+        <label class="type-check"><input type="checkbox" name="placeType" value="deli"> Deli</label>
+        <label class="type-check"><input type="checkbox" name="placeType" value="grocery"> Grocery</label>
+        <label class="type-check"><input type="checkbox" name="placeType" value="market"> Market</label>
+        <label class="type-check"><input type="checkbox" name="placeType" value="shop"> Shop/Store</label>
+        <label class="type-check"><input type="checkbox" name="placeType" value="meetup"> Meetup</label>
+        <label class="type-check"><input type="checkbox" name="placeType" value="other"> Other</label>
+    </div>
+    <div class="help-text">Choose as many as apply - e.g. a deli that's also a grocery store</div>
+</div>
             
             <div class="form-row">
     <label for="placeLocation">Location *</label>
