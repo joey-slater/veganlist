@@ -196,21 +196,6 @@
             html += `</div><br>`;
         });
 
-        // Also show any custom cities not in the preset list
-        const customCities = Object.keys(cityCounts)
-            .filter(city => !Object.values(PRESET_CITIES).flat().includes(city))
-            .sort();
-
-        if (customCities.length > 0) {
-            html += `<p><strong>Other</strong></p>`;
-            html += `<div class="cities-grid">`;
-            customCities.forEach(city => {
-                const count = cityCounts[city];
-                const encoded = encodeURIComponent(city);
-                html += `<a href="city.html?location=${encoded}" class="city-link">${escapeHtml(city)} (${count})</a>`;
-            });
-            html += `</div>`;
-        }
 
         document.getElementById('citiesList').innerHTML = html;
     }
