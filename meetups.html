@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meetups - VeganList</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #f5f5f5;
+            color: #000;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            border-bottom: 2px solid #000;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        h1 a {
+            color: #000;
+            text-decoration: none;
+        }
+        
+        h1 a:hover {
+            text-decoration: underline;
+        }
+        
+        .breadcrumb {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .breadcrumb a {
+            color: #000;
+            text-decoration: underline;
+        }
+        
+        .section {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        
+        .filters {
+            background-color: #efefef;
+            padding: 15px;
+            border-left: 3px solid #000;
+            margin-bottom: 20px;
+        }
+        
+        .filter-group {
+            margin-bottom: 10px;
+        }
+        
+        .filter-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        .filter-label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .filter-checks {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .filter-check {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: normal;
+            cursor: pointer;
+        }
+        
+        .filter-check input {
+            cursor: pointer;
+        }
+        
+        .posting {
+            padding: 20px 0;
+            border-bottom: 2px solid #000;
+        }
+        
+        .posting:last-child {
+            border-bottom: none;
+        }
+        
+        .posting-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .posting-meta {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 12px;
+        }
+        
+        .posting-meta span {
+            margin-right: 15px;
+        }
+        
+        .posting-details {
+            font-size: 0.95em;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+        
+        .recurring-badge {
+            display: inline-block;
+            background-color: #000;
+            color: #fff;
+            padding: 2px 6px;
+            font-size: 0.75em;
+            margin-left: 8px;
+        }
+        
+        .section-header {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin: 30px 0 15px 0;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        .empty-state {
+            color: #666;
+            font-style: italic;
+            padding: 20px 0;
+        }
+        
+        .action-links {
+            margin: 20px 0;
+        }
+        
+        .action-links a {
+            color: #000;
+            text-decoration: underline;
+            margin-right: 20px;
+        }
+        
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #000;
+            font-size: 0.85em;
+            color: #666;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="index.html">VeganList</a></h1>
+        <div class="breadcrumb">
+            <a href="index.html">home</a> / meetups
+        </div>
+    </header>
+
+    <div class="section">
+        <h2>Community Meetups</h2>
+        
+        <div class="filters">
+            <div class="filter-group">
+                <span class="filter-label">Filter by location:</span>
+                <div class="filter-checks" id="cityFilters"></div>
+            </div>
+            <div class="filter-group">
+                <label class="filter-check">
+                    <input type="checkbox" id="showPast" onchange="displayMeetups()">
+                    Show past meetups
+                </label>
+            </div>
+        </div>
+        
+        <div id="meetupsContainer"></div>
+        
+        <div class="action-links">
+            <a href="add-meetup.html">post a meetup</a>
+            <a href="index.html">back to places</a>
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>About VeganList:</strong> This is a free, community-maintained resource. No one profits from this. No one's listing is "promoted." Everything here exists because someone in the community took the time to add it.</p>
+    </footer>
+
+    <script>
+        const PRESET_CITIES = ['Chicago', 'Los Angeles', 'New York', 'Portland', 'San Francisco', 'Seattle', 'Bristol', 'Edinburgh', 'London', 'Manchester'];
+        
+        let meetups = [];
+        let activeCityFilters = [...PRESET_CITIES];
+
+        function loadMeetups() {
+            const data = localStorage.getItem('veganlist-meetups');
+            if (data) {
+                meetups = JSON.parse(data);
+            }
+            renderCityFilters();
+            displayMeetups();
+        }
+
+        function renderCityFilters() {
+            const filtersHTML = PRESET_CITIES.map(city => `
+                <label class="filter-check">
+                    <input type="checkbox" value="${city}" checked onchange="updateCityFilters()">
+                    ${city}
+                </label>
+            `).join('');
+            document.getElementById('cityFilters').innerHTML = filtersHTML;
+        }
+
+        function updateCityFilters() {
+            activeCityFilters = Array.from(document.querySelectorAll('#cityFilters input:checked'))
+                .map(cb => cb.value);
+            displayMeetups();
+        }
+
+        function displayMeetups() {
+            const showPast = document.getElementById('showPast').checked;
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            // Filter meetups
+            let filtered = meetups.filter(m => activeCityFilters.includes(m.city));
+
+            // Separate into upcoming and past
+            const upcoming = filtered.filter(m => {
+                if (m.recurring) return true;
+                if (!m.date) return true;
+                const meetupDate = new Date(m.date);
+                return meetupDate >= today;
+            }).sort((a, b) => {
+                if (a.recurring && !b.recurring) return -1;
+                if (!a.recurring && b.recurring) return 1;
+                if (!a.date) return 1;
+                if (!b.date) return -1;
+                return new Date(a.date) - new Date(b.date);
+            });
+
+            const past = filtered.filter(m => {
+                if (m.recurring) return false;
+                if (!m.date) return false;
+                const meetupDate = new Date(m.date);
+                return meetupDate < today;
+            }).sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            const container = document.getElementById('meetupsContainer');
+            let html = '';
+
+            // Upcoming meetups
+            if (upcoming.length > 0) {
+                html += upcoming.map(m => renderMeetup(m)).join('');
+            } else {
+                html += '<div class="empty-state">No upcoming meetups. <a href="add-meetup.html">Post the first one!</a></div>';
+            }
+
+            // Past meetups
+            if (showPast && past.length > 0) {
+                html += '<div class="section-header">Past Meetups</div>';
+                html += past.map(m => renderMeetup(m)).join('');
+            }
+
+            container.innerHTML = html;
+        }
+
+        function renderMeetup(meetup) {
+            const dateDisplay = meetup.recurring ? '' : (meetup.date ? `📅 ${formatDate(meetup.date)}` : '');
+            const recurringBadge = meetup.recurring ? '<span class="recurring-badge">RECURRING</span>' : '';
+            
+            return `
+                <div class="posting">
+                    <div class="posting-title">${escapeHtml(meetup.title)}${recurringBadge}</div>
+                    <div class="posting-meta">
+                        <span>📍 ${escapeHtml(meetup.city)}</span>
+                        ${dateDisplay}
+                    </div>
+                    <div class="posting-details">${escapeHtml(meetup.details)}</div>
+                </div>
+            `;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                weekday: 'long'
+            });
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        loadMeetups();
+    </script>
+</body>
+</html>
