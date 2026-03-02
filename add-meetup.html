@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post a Meetup - VeganList</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #f5f5f5;
+            color: #000;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        header {
+            border-bottom: 2px solid #000;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        h1 a {
+            color: #000;
+            text-decoration: none;
+        }
+        
+        h1 a:hover {
+            text-decoration: underline;
+        }
+        
+        .breadcrumb {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .breadcrumb a {
+            color: #000;
+            text-decoration: underline;
+        }
+        
+        .section {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        
+        .intro {
+            font-size: 0.95em;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .form-row {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input[type="text"], input[type="date"], textarea {
+            width: 100%;
+            padding: 8px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 1em;
+            border: 1px solid #999;
+            background-color: #fff;
+        }
+        
+        textarea {
+            resize: vertical;
+        }
+        
+        .help-text {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 3px;
+        }
+        
+        .checkbox-container {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .checkbox-container input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+        
+        .checkbox-container label {
+            margin: 0;
+            font-weight: normal;
+        }
+        
+        button {
+            background-color: #000;
+            color: #fff;
+            padding: 12px 24px;
+            border: none;
+            cursor: pointer;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 1em;
+        }
+        
+        button:hover {
+            background-color: #333;
+        }
+        
+        .city-preset-btn {
+            background-color: #fff;
+            color: #000;
+            border: 1px solid #999;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9em;
+        }
+        
+        .city-preset-btn:hover, .city-preset-btn.selected {
+            background-color: #000;
+            color: #fff;
+        }
+        
+        .preset-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+        
+        .success-message {
+            background-color: #efefef;
+            border-left: 3px solid #000;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #000;
+            font-size: 0.85em;
+            color: #666;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="index.html">VeganList</a></h1>
+        <div class="breadcrumb">
+            <a href="index.html">home</a> / <a href="meetups.html">meetups</a> / post a meetup
+        </div>
+    </header>
+
+    <div class="section">
+        <h2>Post a Meetup</h2>
+        
+        <div class="intro">
+            Building vegan community, one gathering at a time. Post your potluck, activism meetup, running club, book discussion, or whatever brings vegans together.
+        </div>
+        
+        <div id="successMessage" style="display: none;" class="success-message">
+            Your meetup has been posted! <a href="meetups.html">View all meetups</a>
+        </div>
+        
+        <form id="meetupForm">
+            <div class="form-row">
+                <label for="meetupTitle">Title *</label>
+                <input type="text" id="meetupTitle" placeholder="e.g., Sunday Morning Run Club" required>
+            </div>
+            
+            <div class="form-row">
+                <label>Location *</label>
+                <div style="margin-bottom: 10px;">
+                    <p style="font-size:0.9em; margin-bottom:8px;">Select a city:</p>
+                    <p style="font-size:0.85em; color:#666; margin-bottom:5px;">US</p>
+                    <div class="preset-buttons">
+                        <button type="button" class="city-preset-btn" onclick="selectCity('Chicago')">Chicago</button>
+                        <button type="button" class="city-preset-btn" onclick="selectCity('Los Angeles')">Los Angeles</button>
+                        <button type="button" class="city-preset-btn" onclick="selectCity('New York')">New York</button>
+                        <button type="button" class="city-preset-btn" onclick="selectCity('Portland')">Portland</button>
+                        <button type="button" class="city-preset-btn" onclick="selectCity('San Francisco')">San Francisco</button>
+                        <button type="button" class="city-preset-btn" onclick="selectCity('Seattle')">Seattle</button>
+                    </div>
+                    <p style="font-size:0.85em; color:#666; margin-top:10px; margin-bottom:5px;">UK</p>
+                    <div class="preset-buttons">
+                        <button type="button" class="city-preset-btn" onclick="selectCity('Bristol')">Bristol</button>
+                        <button type="button" class="city-preset-btn" onclick="selectCity('Edinburgh')">Edinburgh</button>
+                        <button type="button" class="city-preset-btn" onclick="selectCity('London')">London</button>
+                        <button type="button" class="city-preset-btn" onclick="selectCity('Manchester')">Manchester</button>
+                    </div>
+                </div>
+                <input type="hidden" id="meetupCity" required>
+            </div>
+            
+            <div class="checkbox-container">
+                <input type="checkbox" id="meetupRecurring">
+                <label for="meetupRecurring">This is a recurring meetup (won't expire)</label>
+            </div>
+            
+            <div class="form-row" id="dateRow">
+                <label for="meetupDate">Date *</label>
+                <input type="date" id="meetupDate">
+                <div class="help-text">For recurring meetups, you can leave this blank or enter the next date</div>
+            </div>
+            
+            <div class="form-row">
+                <label for="meetupDetails">Details *</label>
+                <textarea id="meetupDetails" rows="8" placeholder="Include: where to meet, what time, what to bring, how to RSVP, contact info - whatever people need to know!" required></textarea>
+                <div class="help-text">Write it like you're posting on a bulletin board. Be clear and friendly.</div>
+            </div>
+            
+            <button type="submit">Post Meetup</button>
+        </form>
+    </div>
+
+    <footer>
+        <p><strong>About VeganList:</strong> This is a free, community-maintained resource. No one profits from this. No one's listing is "promoted." Everything here exists because someone in the community took the time to add it.</p>
+    </footer>
+
+    <script>
+        function selectCity(city) {
+            document.getElementById('meetupCity').value = city;
+            document.querySelectorAll('.city-preset-btn').forEach(btn => {
+                btn.classList.toggle('selected', btn.textContent === city);
+            });
+        }
+
+        // Select New York by default
+        selectCity('New York');
+
+        // Toggle date field requirement based on recurring checkbox
+        document.getElementById('meetupRecurring').addEventListener('change', function() {
+            const dateField = document.getElementById('meetupDate');
+            if (this.checked) {
+                dateField.removeAttribute('required');
+            } else {
+                dateField.setAttribute('required', 'required');
+            }
+        });
+
+        document.getElementById('meetupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newMeetup = {
+                title: document.getElementById('meetupTitle').value.trim(),
+                city: document.getElementById('meetupCity').value,
+                recurring: document.getElementById('meetupRecurring').checked,
+                date: document.getElementById('meetupDate').value,
+                details: document.getElementById('meetupDetails').value.trim(),
+                dateAdded: new Date().toISOString()
+            };
+            
+            // Load existing meetups
+            let meetups = [];
+            const data = localStorage.getItem('veganlist-meetups');
+            if (data) {
+                meetups = JSON.parse(data);
+            }
+            
+            meetups.push(newMeetup);
+            
+            try {
+                localStorage.setItem('veganlist-meetups', JSON.stringify(meetups));
+                document.getElementById('successMessage').style.display = 'block';
+                this.reset();
+                selectCity('New York');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } catch (error) {
+                console.error('Error saving meetup:', error);
+                alert('Error saving meetup. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>
