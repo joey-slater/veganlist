@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books - VeganList</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #f5f5f5;
+            color: #000;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            border-bottom: 2px solid #000;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        h1 a {
+            color: #000;
+            text-decoration: none;
+        }
+        
+        h1 a:hover {
+            text-decoration: underline;
+        }
+        
+        .breadcrumb {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .breadcrumb a {
+            color: #000;
+            text-decoration: underline;
+        }
+        
+        .intro {
+            font-size: 0.95em;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .section {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            text-transform: uppercase;
+        }
+        
+        .book {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .book:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .book-title {
+            font-weight: bold;
+            font-size: 1.05em;
+            font-style: italic;
+        }
+        
+        .book-author {
+            font-size: 0.95em;
+            color: #333;
+            margin-top: 2px;
+        }
+        
+        .book-desc {
+            font-size: 0.95em;
+            color: #555;
+            margin-top: 5px;
+        }
+        
+        .action-links {
+            margin: 20px 0;
+        }
+        
+        .action-links a {
+            color: #000;
+            text-decoration: underline;
+            margin-right: 20px;
+        }
+        
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #000;
+            font-size: 0.85em;
+            color: #666;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="index.html">VeganList</a></h1>
+        <div class="breadcrumb">
+            <a href="index.html">home</a> / books
+        </div>
+    </header>
+
+    <div class="intro">
+        Community-curated reading list for vegans and the vegan-curious. From philosophy to cookbooks to fiction featuring vegan characters.
+    </div>
+
+    <div class="section">
+        <h2>Philosophy & Ethics</h2>
+        
+        <div class="book">
+            <div class="book-title">Animal Liberation</div>
+            <div class="book-author">Peter Singer</div>
+            <div class="book-desc">The foundational text of the modern animal rights movement. Philosophical argument against speciesism and for considering animal interests.</div>
+        </div>
+        
+        <div class="book">
+            <div class="book-title">The Sexual Politics of Meat</div>
+            <div class="book-author">Carol J. Adams</div>
+            <div class="book-desc">Feminist-vegetarian critical theory exploring connections between patriarchy and meat consumption.</div>
+        </div>
+        
+        <div class="book">
+            <div class="book-title">Why We Love Dogs, Eat Pigs, and Wear Cows</div>
+            <div class="book-author">Melanie Joy</div>
+            <div class="book-desc">Introduction to carnism - the invisible belief system that shapes our relationship with animals.</div>
+        </div>
+        
+        <div class="book">
+            <div class="book-title">Eating Animals</div>
+            <div class="book-author">Jonathan Safran Foer</div>
+            <div class="book-desc">Personal and investigative exploration of factory farming and the ethics of eating animals.</div>
+        </div>
+        
+        <div class="book">
+            <div class="book-title">The Case for Animal Rights</div>
+            <div class="book-author">Tom Regan</div>
+            <div class="book-desc">Rigorous philosophical argument for animal rights based on inherent value.</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Non-Fiction & Memoir</h2>
+        
+        <div class="book">
+            <div class="book-title">The China Study</div>
+            <div class="book-author">T. Colin Campbell & Thomas M. Campbell II</div>
+            <div class="book-desc">Nutritional research on the relationship between diet and disease, advocating for whole-food, plant-based eating.</div>
+        </div>
+        
+        <div class="book">
+            <div class="book-title">How Not to Die</div>
+            <div class="book-author">Michael Greger, MD</div>
+            <div class="book-desc">Evidence-based guide to preventing and reversing disease through nutrition.</div>
+        </div>
+        
+        <div class="book">
+            <div class="book-title">The Lucky Ones: My Passionate Fight for Farm Animals</div>
+            <div class="book-author">Jenny Brown</div>
+            <div class="book-desc">Memoir from the founder of Woodstock Farm Sanctuary about rescuing animals and fighting for their rights.</div>
+        </div>
+        
+        <div class="book">
+            <div class="book-title">We Are the Weather</div>
+            <div class="book-author">Jonathan Safran Foer</div>
+            <div class="book-desc">Exploration of climate change and the role of animal agriculture, arguing for collective dietary change.</div>
+        </div>
+        
+        <div class="book">
+            <div class="book-title">Sistah Vegan</div>
+            <div class="book-author">A. Breeze Harper (editor)</div>
+            <div class="book-desc">Anthology of Black female vegans on food, identity, health, and society.</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Fiction</h2>
+        
+        <div class="book">
+            <div class="book-title">Tender is the Flesh</div>
+            <div class="book-author">Agustina Bazterrica</div>
+            <div class="book-desc">Dystopian novel exploring speciesism and the commodification of sentient beings.</div>
+        </div>
+        
+        <div class="book">
+            <div class="book-title">We, the Drowned</div>
+            <div class="book-author">Carsten Jensen</div>
+            <div class="book-desc">Epic seafaring novel (not explicitly vegan but explores human relationship with the sea and its creatures).</div>
+        </div>
+        
+        <div class="book">
+            <div class="book-title">Kafka on the Shore</div>
+            <div class="book-author">Haruki Murakami</div>
+            <div class="book-desc">Surreal novel featuring a character who communicates with cats (Murakami is vegetarian).</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Cookbooks</h2>
+        
+        <div class="book">
+            <div class="book-title">Veganomicon</div>
+            <div class="book-author">Isa Chandra Moskowitz & Terry Hope Romero</div>
+            <div class="book-desc">Classic vegan cookbook with over 250 recipes covering basics to advanced techniques.</div>
+        </div>
+        
+        <div class="book">
+            <div class="book-title">Thug Kitchen</div>
+            <div class="book-author">Thug Kitchen LLC</div>
+            <div class="book-desc">Plant-based recipes with irreverent humor, focusing on whole foods and accessibility.</div>
+        </div>
+        
+        <div class="book">
+            <div class="book-title">The Homemade Vegan Pantry</div>
+            <div class="book-author">Miyoko Schinner</div>
+            <div class="book-desc">DIY staples like cheeses, butters, milks, and condiments from scratch.</div>
+        </div>
+        
+        <div class="book">
+            <div class="book-title">Vegan Soul Kitchen</div>
+            <div class="book-author">Bryant Terry</div>
+            <div class="book-desc">African American and Creole recipes reimagined as fresh, vegan comfort food.</div>
+        </div>
+        
+        <div class="book">
+            <div class="book-title">Isa Does It</div>
+            <div class="book-author">Isa Chandra Moskowitz</div>
+            <div class="book-desc">Quick vegan recipes that don't sacrifice flavor, organized by time commitment.</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>For Kids & Young Adults</h2>
+        
+        <div class="book">
+            <div class="book-title">That's Why We Don't Eat Animals</div>
+            <div class="book-author">Ruby Roth</div>
+            <div class="book-desc">Picture book introducing young children to veganism and compassion for animals.</div>
+        </div>
+        
+        <div class="book">
+            <div class="book-title">Vegan is Love</div>
+            <div class="book-author">Ruby Roth</div>
+            <div class="book-desc">Children's book on living vegan beyond diet - clothing, entertainment, and everyday choices.</div>
+        </div>
+        
+        <div class="book">
+            <div class="book-title">V is for Vegan</div>
+            <div class="book-author">Ruby Roth</div>
+            <div class="book-desc">ABC book teaching the vegan alphabet to young children.</div>
+        </div>
+    </div>
+
+    <div class="action-links">
+        <a href="index.html">back to home</a>
+    </div>
+
+    <footer>
+        <p><strong>About VeganList:</strong> This is a free, community-maintained resource. No one profits from this. No one's listing is "promoted." Everything here exists because someone in the community took the time to add it.</p>
+    </footer>
+</body>
+</html>

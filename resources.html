@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - VeganList</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #f5f5f5;
+            color: #000;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            border-bottom: 2px solid #000;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        h1 a {
+            color: #000;
+            text-decoration: none;
+        }
+        
+        h1 a:hover {
+            text-decoration: underline;
+        }
+        
+        .breadcrumb {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .breadcrumb a {
+            color: #000;
+            text-decoration: underline;
+        }
+        
+        .intro {
+            font-size: 0.95em;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .section {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            text-transform: uppercase;
+        }
+        
+        .resource {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .resource:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .resource-name {
+            font-weight: bold;
+            font-size: 1.05em;
+        }
+        
+        .resource-name a {
+            color: #000;
+            text-decoration: underline;
+        }
+        
+        .resource-name a:hover {
+            color: #333;
+        }
+        
+        .resource-desc {
+            font-size: 0.95em;
+            color: #555;
+            margin-top: 3px;
+        }
+        
+        .action-links {
+            margin: 20px 0;
+        }
+        
+        .action-links a {
+            color: #000;
+            text-decoration: underline;
+            margin-right: 20px;
+        }
+        
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #000;
+            font-size: 0.85em;
+            color: #666;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="index.html">VeganList</a></h1>
+        <div class="breadcrumb">
+            <a href="index.html">home</a> / resources
+        </div>
+    </header>
+
+    <div class="intro">
+        A directory of practical resources for living and advocating as a vegan. Want to add something? This page is open source - submit additions via GitHub.
+    </div>
+
+    <div class="section">
+        <h2>Nutrition & Health</h2>
+        
+        <div class="resource">
+            <div class="resource-name"><a href="https://nutritionfacts.org/" target="_blank">NutritionFacts.org</a></div>
+            <div class="resource-desc">Evidence-based nutrition information from Dr. Michael Greger. Videos and articles on plant-based health.</div>
+        </div>
+        
+        <div class="resource">
+            <div class="resource-name"><a href="https://cronometer.com/" target="_blank">Cronometer</a></div>
+            <div class="resource-desc">Track your nutrition to ensure you're meeting all vitamin and mineral requirements.</div>
+        </div>
+        
+        <div class="resource">
+            <div class="resource-name"><a href="https://www.theveganrd.com/" target="_blank">The Vegan RD</a></div>
+            <div class="resource-desc">Evidence-based vegan nutrition guidance from registered dietitian Ginny Messina.</div>
+        </div>
+        
+        <div class="resource">
+            <div class="resource-name"><a href="https://veganhealth.org/" target="_blank">Vegan Health</a></div>
+            <div class="resource-desc">Comprehensive nutrition recommendations from dietitian Jack Norris, co-founder of Vegan Outreach.</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>New to Veganism</h2>
+        
+        <div class="resource">
+            <div class="resource-name"><a href="https://challenge22.com/" target="_blank">Challenge 22</a></div>
+            <div class="resource-desc">Free 22-day vegan challenge with mentors, recipes, and community support.</div>
+        </div>
+        
+        <div class="resource">
+            <div class="resource-name"><a href="https://www.vegankit.com/" target="_blank">Vegan Kit</a></div>
+            <div class="resource-desc">Simple guide covering why and how to go vegan, with practical tips.</div>
+        </div>
+        
+        <div class="resource">
+            <div class="resource-name"><a href="https://www.vegansociety.com/go-vegan/how-go-vegan" target="_blank">The Vegan Society - How to Go Vegan</a></div>
+            <div class="resource-desc">Step-by-step transition guide from the organization that coined the term "vegan."</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Activism & Outreach</h2>
+        
+        <div class="resource">
+            <div class="resource-name"><a href="https://www.anonymousforthevoiceless.org/" target="_blank">Anonymous for the Voiceless</a></div>
+            <div class="resource-desc">Organized street activism using "Cubes of Truth" - screens showing footage plus one-on-one conversations.</div>
+        </div>
+        
+        <div class="resource">
+            <div class="resource-name"><a href="https://www.directactioneverywhere.com/get-active" target="_blank">Direct Action Everywhere (DxE)</a></div>
+            <div class="resource-desc">Grassroots animal rights network with chapters worldwide. Resources for organizing direct action.</div>
+        </div>
+        
+        <div class="resource">
+            <div class="resource-name"><a href="https://veganoutreach.org/" target="_blank">Vegan Outreach</a></div>
+            <div class="resource-desc">Creating a vegan world through literature distribution and one-on-one conversations.</div>
+        </div>
+        
+        <div class="resource">
+            <div class="resource-name"><a href="https://thehumaneleague.org/get-involved" target="_blank">The Humane League</a></div>
+            <div class="resource-desc">Corporate campaigns and grassroots organizing to end abuse of animals raised for food.</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Talking to Non-Vegans</h2>
+        
+        <div class="resource">
+            <div class="resource-name"><a href="https://www.carnism.org/carnism" target="_blank">Carnism Awareness & Action Network</a></div>
+            <div class="resource-desc">Understanding carnism (the invisible belief system that conditions people to eat animals) to have better conversations.</div>
+        </div>
+        
+        <div class="resource">
+            <div class="resource-name"><a href="https://yourveganfallacyis.com/" target="_blank">Your Vegan Fallacy Is</a></div>
+            <div class="resource-desc">Concise, evidence-based responses to common arguments against veganism.</div>
+        </div>
+        
+        <div class="resource">
+            <div class="resource-name"><a href="https://www.youtube.com/@EarthlingEd" target="_blank">Earthling Ed</a></div>
+            <div class="resource-desc">YouTube channel featuring respectful, effective vegan advocacy and street interviews.</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Animal Sanctuaries</h2>
+        
+        <div class="resource">
+            <div class="resource-name"><a href="https://www.farmsanctuary.org/" target="_blank">Farm Sanctuary</a></div>
+            <div class="resource-desc">Rescue, advocacy, and education. Sanctuaries in California and New York.</div>
+        </div>
+        
+        <div class="resource">
+            <div class="resource-name"><a href="https://woodstocksanctuary.org/" target="_blank">Woodstock Farm Sanctuary</a></div>
+            <div class="resource-desc">Animal rescue and vegan advocacy in New York's Hudson Valley.</div>
+        </div>
+        
+        <div class="resource">
+            <div class="resource-name"><a href="https://www.sanctuaryfederation.org/find-a-sanctuary/" target="_blank">Global Federation of Animal Sanctuaries</a></div>
+            <div class="resource-desc">Find accredited animal sanctuaries worldwide.</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Environmental Impact</h2>
+        
+        <div class="resource">
+            <div class="resource-name"><a href="https://ourworldindata.org/environmental-impacts-of-food" target="_blank">Our World in Data - Environmental Impacts of Food</a></div>
+            <div class="resource-desc">Data-driven analysis of food production's environmental footprint.</div>
+        </div>
+        
+        <div class="resource">
+            <div class="resource-name"><a href="https://www.cowspiracy.com/facts" target="_blank">Cowspiracy Facts</a></div>
+            <div class="resource-desc">Sourced facts about animal agriculture's environmental impact from the documentary.</div>
+        </div>
+        
+        <div class="resource">
+            <div class="resource-name"><a href="https://www.theguardian.com/environment/2018/may/31/avoiding-meat-and-dairy-is-single-biggest-way-to-reduce-your-impact-on-earth" target="_blank">Avoiding Meat & Dairy - The Guardian</a></div>
+            <div class="resource-desc">Report on the most comprehensive analysis to date of farming's environmental impact.</div>
+        </div>
+    </div>
+
+    <div class="action-links">
+        <a href="index.html">back to home</a>
+    </div>
+
+    <footer>
+        <p><strong>About VeganList:</strong> This is a free, community-maintained resource. No one profits from this. No one's listing is "promoted." Everything here exists because someone in the community took the time to add it.</p>
+    </footer>
+</body>
+</html>

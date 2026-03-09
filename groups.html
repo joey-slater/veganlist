@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Groups - VeganList</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #f5f5f5;
+            color: #000;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            border-bottom: 2px solid #000;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        h1 a {
+            color: #000;
+            text-decoration: none;
+        }
+        
+        h1 a:hover {
+            text-decoration: underline;
+        }
+        
+        .breadcrumb {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .breadcrumb a {
+            color: #000;
+            text-decoration: underline;
+        }
+        
+        .intro {
+            font-size: 0.95em;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .section {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        
+        .group {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .group:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .group-name {
+            font-weight: bold;
+            font-size: 1.05em;
+        }
+        
+        .group-desc {
+            font-size: 0.95em;
+            color: #555;
+            margin-top: 3px;
+        }
+        
+        .group-contact {
+            font-size: 0.9em;
+            color: #333;
+            margin-top: 3px;
+        }
+        
+        .group-contact a {
+            color: #000;
+            text-decoration: underline;
+        }
+        
+        .action-links {
+            margin: 20px 0;
+        }
+        
+        .action-links a {
+            color: #000;
+            text-decoration: underline;
+            margin-right: 20px;
+        }
+        
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #000;
+            font-size: 0.85em;
+            color: #666;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="index.html">VeganList</a></h1>
+        <div class="breadcrumb">
+            <a href="index.html">home</a> / local groups
+        </div>
+    </header>
+
+    <div class="intro">
+        Ongoing vegan organizations, collectives, and community groups by city. These are established groups, not one-time events (for those, see <a href="meetups.html">meetups</a>).
+    </div>
+
+    <div class="section">
+        <h2>New York</h2>
+        
+        <div class="group">
+            <div class="group-name">NYC Vegan Drinks</div>
+            <div class="group-desc">Monthly social meetups at vegan-friendly bars across NYC boroughs.</div>
+            <div class="group-contact"><a href="https://www.meetup.com/nycvegandrinks/" target="_blank">meetup.com/nycvegandrinks</a></div>
+        </div>
+        
+        <div class="group">
+            <div class="group-name">Collectively Free NYC</div>
+            <div class="group-desc">Intersectional animal rights activism connecting animal liberation with other social justice movements.</div>
+            <div class="group-contact"><a href="https://www.collectivelyfree.org/" target="_blank">collectivelyfree.org</a></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Los Angeles</h2>
+        
+        <div class="group">
+            <div class="group-name">Animal Acres</div>
+            <div class="group-desc">Farm sanctuary and education center in Acton, CA offering tours and volunteer opportunities.</div>
+            <div class="group-contact"><a href="https://www.farmsanctuary.org/locations/la/" target="_blank">farmsanctuary.org/locations/la</a></div>
+        </div>
+        
+        <div class="group">
+            <div class="group-name">Los Angeles Animal Save</div>
+            <div class="group-desc">Bearing witness to animals in transport, weekly vigils at slaughterhouses.</div>
+            <div class="group-contact">Facebook: LA Animal Save</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>San Francisco</h2>
+        
+        <div class="group">
+            <div class="group-name">Direct Action Everywhere (DxE) SF Bay</div>
+            <div class="group-desc">Grassroots animal rights network organizing direct action campaigns and community events.</div>
+            <div class="group-contact"><a href="https://www.directactioneverywhere.com/" target="_blank">directactioneverywhere.com</a></div>
+        </div>
+        
+        <div class="group">
+            <div class="group-name">VegOut SF</div>
+            <div class="group-desc">Social group organizing potlucks, restaurant outings, and vegan-friendly activities.</div>
+            <div class="group-contact">Facebook: VegOut SF</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Portland</h2>
+        
+        <div class="group">
+            <div class="group-name">Portland Vegan Drinks</div>
+            <div class="group-desc">Monthly social gatherings at vegan restaurants and bars.</div>
+            <div class="group-contact">Instagram: @pdxvegandrinks</div>
+        </div>
+        
+        <div class="group">
+            <div class="group-name">Pasado's Safe Haven</div>
+            <div class="group-desc">Animal sanctuary and advocacy organization in Sultan, WA (near Portland area).</div>
+            <div class="group-contact"><a href="https://www.pasadosafehaven.org/" target="_blank">pasadosafehaven.org</a></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Chicago</h2>
+        
+        <div class="group">
+            <div class="group-name">Chicago Vegan Family Network</div>
+            <div class="group-desc">Support network for vegan families with kids, organizing playdates and family-friendly events.</div>
+            <div class="group-contact">Facebook: Chicago Vegan Family Network</div>
+        </div>
+        
+        <div class="group">
+            <div class="group-name">Animal Advocacy Chicago</div>
+            <div class="group-desc">Activism and outreach focused on institutional change and corporate campaigns.</div>
+            <div class="group-contact">Email: info@animaladvocacychicago.org</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>London</h2>
+        
+        <div class="group">
+            <div class="group-name">London Vegan Meetup</div>
+            <div class="group-desc">One of the largest vegan social groups in the UK, organizing regular restaurant outings and events.</div>
+            <div class="group-contact"><a href="https://www.meetup.com/londonvegan/" target="_blank">meetup.com/londonvegan</a></div>
+        </div>
+        
+        <div class="group">
+            <div class="group-name">Anonymous for the Voiceless London</div>
+            <div class="group-desc">Weekly Cube of Truth events across London neighborhoods.</div>
+            <div class="group-contact">Instagram: @avlondon</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Manchester</h2>
+        
+        <div class="group">
+            <div class="group-name">Manchester Vegan Society</div>
+            <div class="group-desc">Monthly socials, potlucks, and activism events across Greater Manchester.</div>
+            <div class="group-contact">Facebook: Manchester Vegan Society</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Bristol</h2>
+        
+        <div class="group">
+            <div class="group-name">Vegan Bristol</div>
+            <div class="group-desc">Community group organizing social events, activism, and supporting local vegan businesses.</div>
+            <div class="group-contact">Instagram: @veganbristol</div>
+        </div>
+    </div>
+
+    <div class="action-links">
+        <a href="index.html">back to home</a>
+    </div>
+
+    <footer>
+        <p><strong>About VeganList:</strong> This is a free, community-maintained resource. No one profits from this. No one's listing is "promoted." Everything here exists because someone in the community took the time to add it.</p>
+    </footer>
+</body>
+</html>

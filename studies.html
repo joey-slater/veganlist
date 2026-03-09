@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studies - VeganList</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #f5f5f5;
+            color: #000;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            border-bottom: 2px solid #000;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        h1 a {
+            color: #000;
+            text-decoration: none;
+        }
+        
+        h1 a:hover {
+            text-decoration: underline;
+        }
+        
+        .breadcrumb {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .breadcrumb a {
+            color: #000;
+            text-decoration: underline;
+        }
+        
+        .intro {
+            font-size: 0.95em;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .section {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            text-transform: uppercase;
+        }
+        
+        .study {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .study:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .study-title {
+            font-weight: bold;
+            font-size: 1.05em;
+            margin-bottom: 3px;
+        }
+        
+        .study-title a {
+            color: #000;
+            text-decoration: underline;
+        }
+        
+        .study-title a:hover {
+            color: #333;
+        }
+        
+        .study-meta {
+            font-size: 0.85em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .study-summary {
+            font-size: 0.95em;
+            color: #333;
+            margin-top: 5px;
+        }
+        
+        .access-badge {
+            display: inline-block;
+            font-size: 0.75em;
+            padding: 2px 6px;
+            margin-left: 5px;
+            border: 1px solid #000;
+        }
+        
+        .open-access {
+            background-color: #000;
+            color: #fff;
+        }
+        
+        .paywalled {
+            background-color: #fff;
+            color: #000;
+        }
+        
+        .action-links {
+            margin: 20px 0;
+        }
+        
+        .action-links a {
+            color: #000;
+            text-decoration: underline;
+            margin-right: 20px;
+        }
+        
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #000;
+            font-size: 0.85em;
+            color: #666;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="index.html">VeganList</a></h1>
+        <div class="breadcrumb">
+            <a href="index.html">home</a> / studies
+        </div>
+    </header>
+
+    <div class="intro">
+        Peer-reviewed scientific research on plant-based diets, animal agriculture, and related topics. Open-access studies are marked; others may require institutional access or can be requested from authors.
+    </div>
+
+    <div class="section">
+        <h2>Health & Nutrition</h2>
+        
+        <div class="study">
+            <div class="study-title">
+                <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4073139/" target="_blank">Position of the Academy of Nutrition and Dietetics: Vegetarian Diets</a>
+                <span class="access-badge open-access">OPEN ACCESS</span>
+            </div>
+            <div class="study-meta">Melina V, Craig W, Levin S. Journal of the Academy of Nutrition and Dietetics, 2016</div>
+            <div class="study-summary">Official position paper stating that appropriately planned vegetarian and vegan diets are healthful, nutritionally adequate, and may provide health benefits for the prevention and treatment of certain diseases.</div>
+        </div>
+        
+        <div class="study">
+            <div class="study-title">
+                <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6742661/" target="_blank">Plant-Based Diets and Cardiovascular Health</a>
+                <span class="access-badge open-access">OPEN ACCESS</span>
+            </div>
+            <div class="study-meta">Hemler EC, Hu FB. Trends in Cardiovascular Medicine, 2019</div>
+            <div class="study-summary">Review finding plant-based diets are associated with lower risk of cardiovascular disease, cardiovascular disease mortality, and all-cause mortality.</div>
+        </div>
+        
+        <div class="study">
+            <div class="study-title">
+                <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5466941/" target="_blank">Vegetarian Diets and the Risk of Diabetes</a>
+                <span class="access-badge open-access">OPEN ACCESS</span>
+            </div>
+            <div class="study-meta">Papier K, et al. Nutrition & Diabetes, 2017</div>
+            <div class="study-summary">Systematic review showing vegetarian diets are associated with lower risk of type 2 diabetes.</div>
+        </div>
+        
+        <div class="study">
+            <div class="study-title">
+                <a href="https://jamanetwork.com/journals/jamainternalmedicine/fullarticle/1710093" target="_blank">Vegetarian Dietary Patterns and Mortality</a>
+                <span class="access-badge paywalled">ABSTRACT</span>
+            </div>
+            <div class="study-meta">Orlich MJ, et al. JAMA Internal Medicine, 2013</div>
+            <div class="study-summary">Adventist Health Study-2 cohort of 96,000 people finding vegetarian diets associated with lower mortality including reduced cardiovascular mortality.</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Environmental Impact</h2>
+        
+        <div class="study">
+            <div class="study-title">
+                <a href="https://www.science.org/doi/10.1126/science.aaq0216" target="_blank">Reducing Food's Environmental Impacts Through Producers and Consumers</a>
+                <span class="access-badge paywalled">ABSTRACT</span>
+            </div>
+            <div class="study-meta">Poore J, Nemecek T. Science, 2018</div>
+            <div class="study-summary">Most comprehensive analysis to date of farming's environmental impacts. Found that avoiding meat and dairy is the single biggest way to reduce environmental impact on the planet.</div>
+        </div>
+        
+        <div class="study">
+            <div class="study-title">
+                <a href="https://www.pnas.org/doi/full/10.1073/pnas.1523119113" target="_blank">Analysis and Valuation of Health and Climate Change Cobenefits of Dietary Change</a>
+                <span class="access-badge open-access">OPEN ACCESS</span>
+            </div>
+            <div class="study-meta">Springmann M, et al. PNAS, 2016</div>
+            <div class="study-summary">Global adoption of plant-based diets could reduce greenhouse gas emissions by up to 70% and save millions of lives annually.</div>
+        </div>
+        
+        <div class="study">
+            <div class="study-title">
+                <a href="https://www.nature.com/articles/s41586-018-0594-0" target="_blank">Options for Keeping the Food System Within Environmental Limits</a>
+                <span class="access-badge paywalled">ABSTRACT</span>
+            </div>
+            <div class="study-meta">Springmann M, et al. Nature, 2018</div>
+            <div class="study-summary">Analysis of pathways to sustainable food systems, finding dietary shifts toward plant-based foods essential to meet environmental targets.</div>
+        </div>
+        
+        <div class="study">
+            <div class="study-title">
+                <a href="https://climatechange.lta.org/wp-content/uploads/2021/04/Livestock-and-climate-change.pdf" target="_blank">Livestock and Climate Change</a>
+                <span class="access-badge open-access">OPEN ACCESS</span>
+            </div>
+            <div class="study-meta">Goodland R, Anhang J. World Watch Magazine, 2009</div>
+            <div class="study-summary">Analysis concluding livestock and their byproducts account for at least 51% of annual worldwide greenhouse gas emissions.</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Animal Cognition & Sentience</h2>
+        
+        <div class="study">
+            <div class="study-title">
+                <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4494450/" target="_blank">Thinking Pigs: A Comparative Review of Cognition, Emotion, and Personality in Sus domesticus</a>
+                <span class="access-badge open-access">OPEN ACCESS</span>
+            </div>
+            <div class="study-meta">Marino L, Colvin CM. International Journal of Comparative Psychology, 2015</div>
+            <div class="study-summary">Comprehensive review of scientific literature on pig cognition, revealing complex cognitive abilities comparable to dogs and chimpanzees.</div>
+        </div>
+        
+        <div class="study">
+            <div class="study-title">
+                <a href="https://www.animal-ethics.org/cambridge-declaration-on-consciousness/" target="_blank">The Cambridge Declaration on Consciousness</a>
+                <span class="access-badge open-access">OPEN ACCESS</span>
+            </div>
+            <div class="study-meta">Low P, et al. Francis Crick Memorial Conference, 2012</div>
+            <div class="study-summary">International group of neuroscientists declaring that non-human animals possess neurological substrates of consciousness.</div>
+        </div>
+        
+        <div class="study">
+            <div class="study-title">
+                <a href="https://www.wellbeingintlstudiesrepository.org/animsent/vol2/iss16/1/" target="_blank">Fish Intelligence, Sentience and Ethics</a>
+                <span class="access-badge open-access">OPEN ACCESS</span>
+            </div>
+            <div class="study-meta">Brown C. Animal Sentience, 2015</div>
+            <div class="study-summary">Review of evidence for fish cognition, learning, memory, and sentience challenging traditional views of fish as simple reflex-driven animals.</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Food Systems & Agriculture</h2>
+        
+        <div class="study">
+            <div class="study-title">
+                <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6518108/" target="_blank">Sustainability of Plant-Based Diets</a>
+                <span class="access-badge open-access">OPEN ACCESS</span>
+            </div>
+            <div class="study-meta">Fresán U, Sabaté J. Nutrients, 2019</div>
+            <div class="study-summary">Review of environmental sustainability comparing plant-based and animal-based diets across multiple metrics.</div>
+        </div>
+        
+        <div class="study">
+            <div class="study-title">
+                <a href="https://www.pnas.org/doi/10.1073/pnas.1713820115" target="_blank">Assessing the Efficiency of Changes in Land Use for Mitigating Climate Change</a>
+                <span class="access-badge open-access">OPEN ACCESS</span>
+            </div>
+            <div class="study-meta">Hayek MN, et al. PNAS, 2020</div>
+            <div class="study-summary">Eliminating animal agriculture could reduce atmospheric CO2 for 30 years even without any other changes to emissions.</div>
+        </div>
+    </div>
+
+    <div class="action-links">
+        <a href="index.html">back to home</a>
+    </div>
+
+    <footer>
+        <p><strong>About VeganList:</strong> This is a free, community-maintained resource. No one profits from this. No one's listing is "promoted." Everything here exists because someone in the community took the time to add it.</p>
+    </footer>
+</body>
+</html>
