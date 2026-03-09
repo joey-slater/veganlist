@@ -237,7 +237,7 @@
             </div>
             
             <div class="form-row" id="dateRow">
-                <label for="meetupDate">Date *</label>
+                <label for="meetupDate">Date</label>
                 <input type="date" id="meetupDate">
                 <div class="help-text">For recurring meetups, you can leave this blank or enter the next date</div>
             </div>
@@ -267,15 +267,21 @@
         // Select New York by default
         selectCity('New York');
 
-        // Toggle date field requirement based on recurring checkbox
-        document.getElementById('meetupRecurring').addEventListener('change', function() {
-            const dateField = document.getElementById('meetupDate');
-            if (this.checked) {
-                dateField.removeAttribute('required');
-            } else {
-                dateField.setAttribute('required', 'required');
-            }
-        });
+         // Toggle date field requirement based on recurring checkbox
+         // Set date as required by default
+document.getElementById('meetupDate').setAttribute('required', 'required');
+
+document.getElementById('meetupRecurring').addEventListener('change', function() {
+    const dateField = document.getElementById('meetupDate');
+    const dateLabel = document.querySelector('label[for="meetupDate"]');
+    if (this.checked) {
+        dateField.removeAttribute('required');
+        dateLabel.textContent = 'Date (optional for recurring meetups)';
+    } else {
+        dateField.setAttribute('required', 'required');
+        dateLabel.textContent = 'Date *';
+    }
+});
 
         document.getElementById('meetupForm').addEventListener('submit', function(e) {
             e.preventDefault();
